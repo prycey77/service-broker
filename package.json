@@ -1,0 +1,87 @@
+{
+  "name": "@bx-looop/typescript-template",
+  "version": "1.1.0",
+  "description": "A template for LOOOP TypeScript projects",
+  "author": "Bx",
+  "license": "UNLICENSED",
+  "scripts": {
+    "lint": "eslint . --ext ts,tsx && npm run prettier",
+    "prettier": "npx prettier --ignore-path .eslintignore -w '**/*.(js|json)'",
+    "test": "npx jest",
+    "build": "tsc && cp .npmignore dist/ && cp package.json dist/",
+    "postversion": "cp -r package.json ..",
+    "postinstall": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bx-LOOOP/typescript-template.git"
+  },
+  "eslintConfig": {
+    "extends": "@bx-looop/eslint-config-bx"
+  },
+  "prettier": "@bx-looop/eslint-config-bx/prettier.config",
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ]
+  },
+  "devDependencies": {
+    "@bx-looop/eslint-config-bx": "^1.0.0",
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@semantic-release/git": "^9.0.0",
+    "@tsconfig/node14": "^1.0.0",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^14.14.45",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
+    "eslint": "^7.26.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.2",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
+    "jest": "^26.6.3",
+    "prettier": "^2.3.0",
+    "semantic-release-plus": "^18.2.5",
+    "ts-jest": "^26.5.6",
+    "typescript": "^4.2.4"
+  },
+  "engines": {
+    "node": ">14.14"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "commitPaths": [
+      ".",
+      ":(exclude)*.md"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/npm",
+        {
+          "pkgRoot": "dist"
+        }
+      ],
+      "@semantic-release/github",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json"
+          ]
+        }
+      ]
+    ]
+  }
+}
